@@ -46,7 +46,7 @@ class Chapter:
         for attr in d:
             value, issoup = d[attr]
             if issoup:
-                self.__dict__[attr] = BeautifulSoup(value, "lxml")
+                self.__dict__[attr] = BeautifulSoup(value, "html.parser")
             else:
                 self.__dict__[attr] = value
                 
@@ -306,7 +306,7 @@ class Chapter:
         """
 
         req = self.get(url)
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         return soup
     
     def get(self, *args, **kwargs):

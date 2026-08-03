@@ -52,7 +52,7 @@ class User:
         for attr in d:
             value, issoup = d[attr]
             if issoup:
-                self.__dict__[attr] = BeautifulSoup(value, "lxml")
+                self.__dict__[attr] = BeautifulSoup(value, "html.parser")
             else:
                 self.__dict__[attr] = value
         
@@ -381,7 +381,7 @@ class User:
         """
 
         req = self.get(url)
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         return soup
 
     @staticmethod

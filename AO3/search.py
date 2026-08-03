@@ -223,5 +223,5 @@ def search(
         req = session.get(url)
     if req.status_code == 429:
         raise utils.HTTPError("We are being rate-limited. Try again in a while or reduce the number of requests")
-    soup = BeautifulSoup(req.content, features="lxml")
+    soup = BeautifulSoup(req.content, features="html.parser")
     return soup

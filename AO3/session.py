@@ -93,7 +93,7 @@ class GuestSession:
         if req.status_code == 429:
             raise utils.HTTPError("We are being rate-limited. Try again in a while or reduce the number of requests")
             
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         token = soup.find("input", {"name": "authenticity_token"})
         if token is None:
             raise utils.UnexpectedResponseError("Couldn't refresh token")
@@ -121,7 +121,7 @@ class GuestSession:
         """
 
         req = self.get(url)
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         return soup
 
     def post(self, *args, **kwargs):
@@ -192,7 +192,7 @@ class Session(GuestSession):
         for attr in d:
             value, issoup = d[attr]
             if issoup:
-                self.__dict__[attr] = BeautifulSoup(value, "lxml")
+                self.__dict__[attr] = BeautifulSoup(value, "html.parser")
             else:
                 self.__dict__[attr] = value
         

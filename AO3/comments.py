@@ -209,7 +209,7 @@ class Comment:
                     delattr(self, attr)
         
         req = self.get(f"https://archiveofourown.org/comments/{self.id}")
-        self.__soup = BeautifulSoup(req.content, features="lxml")
+        self.__soup = BeautifulSoup(req.content, features="html.parser")
         
         token = self.__soup.find("meta", {"name": "csrf-token"})
         self.authenticity_token = token["content"]

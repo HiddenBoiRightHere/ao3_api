@@ -336,7 +336,7 @@ def delete_comment(comment, session):
     if req.status_code == 429:
         raise HTTPError("We are being rate-limited. Try again in a while or reduce the number of requests")
     else:
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         if "auth error" in soup.title.getText().lower():
             raise AuthError("Invalid authentication token. Try calling session.refresh_auth_token()")
         else:
@@ -511,7 +511,7 @@ def handle_bookmark_errors(request):
             raise AuthError("Invalid authentication token. Try calling session.refresh_auth_token()")
     else:
         if request.status_code == 200:
-            soup = BeautifulSoup(request.content, "lxml")
+            soup = BeautifulSoup(request.content, "html.parser")
             error_div = soup.find("div", {"id": "error", "class": "error"})
             if error_div is None:
                 raise UnexpectedResponseError("An unknown error occurred")
@@ -583,7 +583,7 @@ def collect(collectable, session, collections):
         if req.headers["Location"] == AO3_AUTH_ERROR_URL:
             raise AuthError("Invalid authentication token. Try calling session.refresh_auth_token()")
     elif req.status_code == 200:
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         notice_div = soup.find("div", {"class": "notice"})
         
         error_div = soup.find("div", {"class": "error"})

@@ -22,7 +22,7 @@ def _download_languages():
         url = "https://archiveofourown.org/languages"
         print(f"Downloading from {url}")
         req = requester.request("get", url)
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         for dt in soup.find("dl", {"class": "language index group"}).findAll("dt"):
             if dt.a is not None: 
                 alias = dt.a.attrs["href"].split("/")[-1]
@@ -48,7 +48,7 @@ def _download_fandom(fandom_key, name):
         url = f"https://archiveofourown.org/media/{fandom_key}/fandoms"
         print(f"Downloading from {url}")
         req = requester.request("get", url)
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         for fandom in soup.find("ol", {"class": "alphabet fandom index group"}).findAll("a", {"class": "tag"}):
             fandoms.append(fandom.getText())
         with open(f"{os.path.join(fandom_path, name)}.pkl", "wb") as file:

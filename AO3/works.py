@@ -58,7 +58,7 @@ class Work:
         for attr in d:
             value, issoup = d[attr]
             if issoup:
-                self.__dict__[attr] = BeautifulSoup(value, "lxml")
+                self.__dict__[attr] = BeautifulSoup(value, "html.parser")
             else:
                 self.__dict__[attr] = value
         
@@ -938,7 +938,7 @@ class Work:
         req = self.get(url)
         if len(req.content) > 650000:
             warnings.warn("This work is very big and might take a very long time to load")
-        soup = BeautifulSoup(req.content, "lxml")
+        soup = BeautifulSoup(req.content, "html.parser")
         return soup
 
     @staticmethod
