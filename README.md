@@ -2,17 +2,13 @@
 
 # AO3 API
 
-This is an unofficial API that lets you access some of AO3's (archiveofourown.org) data through Python.
+This is an unofficial API that lets you access some of AO3's (archiveofourown.org) data through Python. The backend has been switched to use html.parser to fix compatibility issues with Buildozer.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install AO3 API.
+Use this git to install this version of the AO3 API: `git+https://github.com/HiddenBoiRightHere/ao3_api.git`
 
-```bash
-pip install ao3_api
-```
-
-# Github
+# Original Github
 
 https://github.com/wendytg/ao3_api
 
